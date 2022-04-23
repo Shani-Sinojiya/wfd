@@ -8,7 +8,7 @@ const path = require("path");
 const app = express();
 
 // port
-const port = 8080 || process.env.PORT;
+const port = 80 || process.env.PORT;
 
 // routes
 const ngoRoutes = require("./router/ngo");
