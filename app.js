@@ -8,14 +8,14 @@ const path = require("path");
 const app = express();
 
 // port
-const port = 80 || process.env.PORT;
+const port = process.env.PORT || 80;
 
 // routes
 const ngoRoutes = require("./router/ngo");
 const restRoutes = require("./router/restauant");
 const loginRoutes = require("./router/login");
 const FoodRoutes = require("./router/foodrequiest");
- 
+
 // DB Conn
 require("./db");
 
