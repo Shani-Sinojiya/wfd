@@ -5,13 +5,13 @@ const passwordHashMatching = require("../helpers/passwordHashMaching-helper");
 
 async function login_post(req, res) {
   switch (req.params.code) {
-    case 1:
+    case "1":
       await NGOlogin(req, res);
       break;
-    case 2:
+    case "2":
       await Restlogin(req, res);
       break;
-    case 3:
+    case "3":
       await emplogin(req, res);
       break;
     default:
