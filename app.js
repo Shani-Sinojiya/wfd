@@ -15,6 +15,7 @@ const ngoRoutes = require("./router/ngo");
 const restRoutes = require("./router/restauant");
 const loginRoutes = require("./router/login");
 const FoodRoutes = require("./router/foodrequiest");
+const adminRoutes = require("./router/admin");
 
 // DB Conn
 require("./db");
@@ -30,6 +31,7 @@ app.use("/restaurant", restRoutes);
 app.use("/ngo/employee", restRoutes);
 app.use("/food/request", FoodRoutes);
 app.use("/login", loginRoutes);
+app.use("/admin/login", adminRoutes);
 
 // static routes
 app.use("/images", express.static(path.join(__dirname, "./images")));
