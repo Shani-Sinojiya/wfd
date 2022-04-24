@@ -36,6 +36,7 @@ const NGOlogin = async (req, res) => {
         });
       }
     }
+    throw Error;
   } catch (error) {
     res.status(400).json({
       status: 0,
@@ -57,6 +58,7 @@ const Restlogin = async (req, res) => {
         });
       }
     }
+    throw Error;
   } catch (error) {
     res.status(400).json({
       status: 0,
@@ -78,6 +80,7 @@ const emplogin = async (req, res) => {
         });
       }
     }
+    throw Error;
   } catch (error) {
     res.status(400).json({
       status: 0,
