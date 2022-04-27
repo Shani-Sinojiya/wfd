@@ -23,7 +23,7 @@ async function adminlogin_post(req, res) {
     }
 }
 
-const adminlogin_post_create = (req, res) => {
+const adminlogin_post_create = async (req, res) => {
     const { email, password, name, phone_number } = req.body;
     try {
         const data = new admin({ email, password, name, phone_number })
