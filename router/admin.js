@@ -5,7 +5,7 @@ const {
 } = require("../controllers/admin");
 const router = express.Router();
 
-router.post("/:code", adminlogin_post);
-router.post("/", adminlogin_post_create);
+router.post("/", adminlogin_post);
+router.post("/signup", adminlogin_post_create);
 
 module.exports = router;
