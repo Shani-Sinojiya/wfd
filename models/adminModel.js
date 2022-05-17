@@ -22,10 +22,6 @@ const adminSchema = new mongoose.Schema({
     required: true,
     minlength: 8,
   },
-  phone_number: {
-    type: Number,
-    required: true,
-  },
 });
 
 adminSchema.pre("save", passwordHasherMiddleware);

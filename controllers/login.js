@@ -1,4 +1,5 @@
 const NGO = require("../models/NGOModel");
+const admin = require("../models/adminModel");
 const Restaurant = require("../models/RestaurantModel");
 const NGOEmployee = require("../models/NGOEmployeeModel");
 const passwordHashMatching = require("../helpers/passwordHashMaching-helper");
@@ -13,6 +14,9 @@ async function login_post(req, res) {
       break;
     case "3":
       await emplogin(req, res);
+      break;
+    case "4":
+      await adminlogin(req, res);
       break;
     default:
       res.status(400).json({
@@ -30,7 +34,7 @@ const NGOlogin = async (req, res) => {
     if (NGOEmail) {
       const isMatch = await passwordHashMatching(password, NGOEmail.password);
       if (isMatch) {
-        res.status(200).json({
+        return res.status(200).json({
           status: 1,
           msg: "Login successfully",
         });
@@ -52,7 +56,7 @@ const Restlogin = async (req, res) => {
     if (RESTEmail) {
       const isMatch = await passwordHashMatching(password, RESTEmail.password);
       if (isMatch) {
-        res.status(200).json({
+        return res.status(200).json({
           status: 1,
           msg: "Login successfully",
         });
@@ -74,7 +78,7 @@ const emplogin = async (req, res) => {
     if (EMPEmail) {
       const isMatch = await passwordHashMatching(password, EMPEmail.password);
       if (isMatch) {
-        res.status(200).json({
+        return res.status(200).json({
           status: 1,
           msg: "Login successfully",
         });
@@ -88,5 +92,27 @@ const emplogin = async (req, res) => {
     });
   }
 };
+
+async function adminlogin(req, res) {
+  const { email, password } = req.body;
+  try {
+    const adminEmail = await admin.findOne({ email: email });
+    if (adminEmail) {
+      const isMatch = await passwordHashMatching(password, adminEmail.password);
+      if (isMatch) {
+        res.status(200).json({
+          status: 1,
+          msg: "Login successfully",
+        });
+      }
+    }
+    throw Error;
+  } catch (error) {
+    res.status(400).json({
+      status: 0,
+      msg: "invalid Crediantional",
+    });
+  }
+}
 
 module.exports = login_post;

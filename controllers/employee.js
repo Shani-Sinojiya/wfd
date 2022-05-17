@@ -23,7 +23,7 @@ async function emp_post(req, res) {
   try {
     if (name && email && phone_number && password && image && NGO_ID) {
       const PathUrl = path.join(__dirname, "../images/") + image.name;
-      const saveUrl = image.name; 
+      const saveUrl = image.name;
       await image.mv(PathUrl, (error) => {
         if (error) {
           throw Error;
@@ -69,7 +69,7 @@ async function emp_patch(req, res) {
 }
 async function emp_delete(req, res) {
   try {
-    await NGOEmployee.findByIdAndDelete(req.params.id, req.body, { new: true });
+    await NGOEmployee.findByIdAndDelete(req.params.id);
     res.status(201).json({
       status: 1,
       msg: "employee update successfully",
@@ -82,9 +82,38 @@ async function emp_delete(req, res) {
   }
 }
 
+async function emp_put(req, res) {
+  try {
+    const data = await NGOEmployee.findById(req.params.id);
+    const password = await bcrypt.hash(req.body.newPassword, 10);
+    const isMatch = await passwordHashMatching(
+      req.body.oldPassword,
+      data.password
+    );
+    if (isMatch) {
+      await NGOEmployee.findByIdAndUpdate(req.params.id, { password });
+      res.status(201).json({
+        status: 1,
+        msg: "Emmployee password updated successfully",
+      });
+    } else {
+      res.status(200).json({
+        status: 1,
+        msg: "invalid old password",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      status: 0,
+      msg: "Emmployee password updated unsuccessfully",
+    });
+  }
+}
+
 module.exports = {
   emp_get,
   emp_post,
   emp_patch,
-  emp_delete
+  emp_put,
+  emp_delete,
 };
