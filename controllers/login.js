@@ -30,7 +30,7 @@ async function login_post(req, res) {
 const NGOlogin = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const NGOEmail = await NGO.findOne({ email: email });
+    const NGOEmail = await NGO.findOne({ email });
     if (NGOEmail) {
       const isMatch = await passwordHashMatching(password, NGOEmail.password);
       if (isMatch) {
@@ -52,7 +52,7 @@ const NGOlogin = async (req, res) => {
 const Restlogin = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const RESTEmail = await Restaurant.findOne({ email: email });
+    const RESTEmail = await Restaurant.findOne({ email });
     if (RESTEmail) {
       const isMatch = await passwordHashMatching(password, RESTEmail.password);
       if (isMatch) {
@@ -74,7 +74,7 @@ const Restlogin = async (req, res) => {
 const emplogin = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const EMPEmail = await NGOEmployee.findOne({ email: email });
+    const EMPEmail = await NGOEmployee.findOne({ email });
     if (EMPEmail) {
       const isMatch = await passwordHashMatching(password, EMPEmail.password);
       if (isMatch) {
@@ -93,14 +93,14 @@ const emplogin = async (req, res) => {
   }
 };
 
-async function adminlogin(req, res) {
+const adminlogin = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const adminEmail = await admin.findOne({ email: email });
-    if (adminEmail) {
-      const isMatch = await passwordHashMatching(password, adminEmail.password);
+    const EMPEmail = await admin.findOne({ email });
+    if (EMPEmail) {
+      const isMatch = await passwordHashMatching(password, EMPEmail.password);
       if (isMatch) {
-        res.status(200).json({
+        return res.status(200).json({
           status: 1,
           msg: "Login successfully",
         });
@@ -113,6 +113,6 @@ async function adminlogin(req, res) {
       msg: "invalid Crediantional",
     });
   }
-}
+};
 
 module.exports = login_post;
